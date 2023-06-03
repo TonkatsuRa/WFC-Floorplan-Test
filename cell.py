@@ -29,7 +29,7 @@ class Cell:
 
     # update the collapsed variable
     def update(self):
-        self.collapsed = bool(self.entropy() == 1)
+        self.collapsed = self.entropy() == 1
 
     # observe the cell/collapse the cell
     def observe(self):
