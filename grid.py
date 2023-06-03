@@ -40,27 +40,22 @@ class Grid:
         grid_copy.sort(key = lambda x:x.entropy())
 
         filtered_grid = list(filter(lambda x:x.entropy() > 1, grid_copy))
-        if filtered_grid == []:
+        if not filtered_grid:
             return None
 
         initial = filtered_grid[0]
         filtered_grid = list(filter(lambda x:x.entropy()==initial.entropy(), filtered_grid))     
 
-        # return a pick if filtered copy os not empty
-        pick = random.choice(filtered_grid)
-        return pick
+        return random.choice(filtered_grid)
 
     # [WAVE FUNCTION COLLAPSE] algorithm
     def collapse(self):
 
-        # pick a random cell using entropy heuristic
-        pick = self.heuristic_pick()
-        if pick:
-            self.grid[pick.x][pick.y].options
-            self.grid[pick.x][pick.y].observe()
-        else:
+        if not (pick := self.heuristic_pick()):
             return
 
+        self.grid[pick.x][pick.y].options
+        self.grid[pick.x][pick.y].observe()
         # shallow copy of the gris
         next_grid = copy.copy(self.grid)
 
